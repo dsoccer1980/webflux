@@ -1,8 +1,9 @@
 package com.poluhin.ss.demo.repository;
 
-import com.poluhin.ss.demo.domain.entity.*;
-import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.*;
+import com.poluhin.ss.demo.domain.entity.ResourceObjectEntity;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface ResourceObjectRepository extends JpaRepository<ResourceObjectEntity, Integer> {
+public interface ResourceObjectRepository extends ReactiveMongoRepository<ResourceObjectEntity, Integer> {
+
+
 }
