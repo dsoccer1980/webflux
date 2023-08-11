@@ -2,6 +2,10 @@ server:
   port: 9000
   http2:
     enabled: true
+spring:
+  security:
+    user:
+      password: default-pass
 
 logging:
   level:
@@ -16,6 +20,10 @@ logging:
       netty:
         http:
           client: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
 
 jwt:
   signing:
