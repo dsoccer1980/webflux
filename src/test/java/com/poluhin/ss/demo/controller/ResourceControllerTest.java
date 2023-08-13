@@ -3,12 +3,18 @@ package com.poluhin.ss.demo.controller;
 import static org.mockito.Mockito.doReturn;
 
 import com.poluhin.ss.demo.domain.model.ResourceObject;
+import com.poluhin.ss.demo.jwt.JwtTokenFilter;
+import com.poluhin.ss.demo.jwt.JwtTokenUtil;
+import com.poluhin.ss.demo.repository.UserRepository;
 import com.poluhin.ss.demo.service.ResourceObjectService;
+import com.poluhin.ss.demo.service.UsersFillService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -16,12 +22,13 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @ExtendWith(SpringExtension.class)
-@WebFluxTest(ResourceController.class)
+@WebFluxTest(value = ResourceController.class, excludeAutoConfiguration = ReactiveSecurityAutoConfiguration.class)
+@Import({JwtTokenUtil.class, JwtTokenFilter.class})
+@MockBean({UserRepository.class, UsersFillService.class})
 class ResourceControllerTest {
 
     @Autowired
     private WebTestClient webTestClient;
-
     @MockBean
     private ResourceObjectService service;
 

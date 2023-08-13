@@ -8,6 +8,7 @@ import static org.mockito.Mockito.doReturn;
 import com.poluhin.ss.demo.domain.entity.ResourceObjectEntity;
 import com.poluhin.ss.demo.domain.model.ResourceObject;
 import com.poluhin.ss.demo.repository.ResourceObjectRepository;
+import com.poluhin.ss.demo.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import reactor.test.StepVerifier;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@MockBean({UserRepository.class, UsersFillService.class})
 class ResourceObjectServiceTest {
 
     @Autowired
