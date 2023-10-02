@@ -1,8 +1,11 @@
 package com.poluhin.ss.demo.exception;
 
-public class AuthException extends RuntimeException {
+import lombok.Getter;
 
-    public AuthException(String message) {
-        super(message);
+@Getter
+public class AuthException extends IAuthException {
+
+    public AuthException(String message, String username) {
+        super(message, username);
     }
 }

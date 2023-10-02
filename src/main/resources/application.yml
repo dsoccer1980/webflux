@@ -6,6 +6,10 @@ spring:
   security:
     user:
       password: default-pass
+  kafka:
+    bootstrap-servers: localhost:29092
+    topic:
+      authEvent: auth-events
 
 logging:
   level:
