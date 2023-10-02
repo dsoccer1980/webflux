@@ -1,0 +1,22 @@
+global:
+  scrape_interval:     5s # By default, scrape targets every 15 seconds.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'codelab-monitor'
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  - job_name: 'webflux-service'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:9090']
+    bearer_token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjI0Nzc2NCwiZXhwIjoxNjk2MzM0MTY0fQ.B4xERZMN4imwdcQWebsxHg9M8yzkGvt_Oct3O9bdroII5jgt1zco03-ZPx5nL-QjUkOHrD3pY70vMRGPO1Ul4Q'
+  - job_name: 'webflux-service-2'
+    scrape_interval: 5s
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ['host.docker.internal:9000']
+    bearer_token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5NjI0Nzc2NCwiZXhwIjoxNjk2MzM0MTY0fQ.B4xERZMN4imwdcQWebsxHg9M8yzkGvt_Oct3O9bdroII5jgt1zco03-ZPx5nL-QjUkOHrD3pY70vMRGPO1Ul4Q'

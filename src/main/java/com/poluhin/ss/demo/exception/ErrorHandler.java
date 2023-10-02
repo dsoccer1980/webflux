@@ -1,6 +1,7 @@
 package com.poluhin.ss.demo.exception;
 
 import com.poluhin.ss.demo.service.KafkaService;
+import com.poluhin.ss.demo.service.PrometheusCounter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -16,6 +17,8 @@ public class ErrorHandler {
 
     @Autowired
     private KafkaService kafkaService;
+    @Autowired
+    private PrometheusCounter prometheusCounter;
 
     @ExceptionHandler({IAuthException.class})
     public void handleMyCustomException(Exception ex) {
@@ -26,6 +29,7 @@ public class ErrorHandler {
         } else {
             kafkaService.sendMessageToAuthEvent(String.format("Unknow user try to log in %s user account", ((IAuthException) ex).getUsername()));
         }
+        prometheusCounter.getUnSuccesLogin().increment();
         throw new ResponseStatusException(HttpStatusCode.valueOf(401), ex.getMessage());
     }
 

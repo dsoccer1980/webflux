@@ -27,6 +27,7 @@ public class WebSecurityConfig {
         http.authorizeExchange(authorize ->
             authorize
                 .pathMatchers("/auth/login").permitAll()
+                .pathMatchers("/actuator/**").permitAll()
                 .pathMatchers("/v3/**", "swagger-ui/**").permitAll()
                 .pathMatchers(HttpMethod.POST, "/resource/**").hasRole("ADMIN")
                 .pathMatchers(HttpMethod.GET, "/resource/**").hasAnyRole("USER", "ADMIN")
