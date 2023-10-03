@@ -18,8 +18,7 @@ public class SecurityService {
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
     private final CacheService cache;
-    private final KafkaService kafkaService;
-    private final PrometheusCounter prometheusCounter;
+    private final TrackService trackService;
 
     public Mono<AuthResponse> authenticate(String username, String password) {
         return userService.loadUserByUsername(username)
@@ -29,10 +28,7 @@ public class SecurityService {
                 }
                 return getAccessToken(user);
             })
-            .doOnSuccess(x -> {
-                kafkaService.sendMessageToAuthEvent(String.format("user %s successful log in", username));
-                prometheusCounter.getSuccesLogin().increment();
-            })
+            .doOnSuccess(x -> trackService.track(String.format("user %s successful log in", username)))
             .switchIfEmpty(Mono.error(new AuthException("Invalid username", username)));
     }
 
